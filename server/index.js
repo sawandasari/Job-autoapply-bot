@@ -6,6 +6,10 @@ require('dotenv').config();
 const app = express();
 app.use(express.json());
 
+const cors = require('cors');
+app.use(cors());
+// Connect to MongoDB
+
 mongoose.connect(process.env.MONGO_URI, {
 })
 .then(() => console.log('✅ Connected to MongoDB'))
@@ -29,5 +33,15 @@ app.post('/api/apply-job', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
+  }
+});
+
+app.get('/api/applied-jobs', async (req, res) => {
+  try {
+    const jobs = await Job.find(); // Fetch all jobs from MongoDB
+    res.status(200).json(jobs);    // Send them back as JSON
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error while retrieving jobs' });
   }
 });
