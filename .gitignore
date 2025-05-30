@@ -1,0 +1,9 @@
+# Node modules and logs
+server/node_modules/
+server/.env
+*.log
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
